@@ -1,11 +1,13 @@
+// Definicion de Variables
+
 let sonido_ganador = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
-let sonido_win = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
-let sonido_perdedor = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
-let sonido_gameover = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
-let sonido_descubrir = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
-let sonido_juegonuevo = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
-let sonido_abrirarea = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
-let sonido_marca = new Audio("../../RESOURCES/AUDIO/sonido_ganador.ogg")
+let sonido_win = new Audio("../../RESOURCES/AUDIO/sonido_win.ogg")
+let sonido_perdedor = new Audio("../../RESOURCES/AUDIO/sonido_perdedor.ogg")
+let sonido_gameover = new Audio("../../RESOURCES/AUDIO/sonido_gameover.ogg")
+let sonido_descubrir = new Audio("../../RESOURCES/AUDIO/sonido_descubrir.ogg")
+let sonido_juegonuevo = new Audio("../../RESOURCES/AUDIO/sonido_nuevojuego.ogg")
+let sonido_abrirarea = new Audio("../../RESOURCES/AUDIO/sonido_abrirarea.ogg")
+let sonido_marca = new Audio("../../RESOURCES/AUDIO/sonido_marca.ogg")
 
 let filas = 20
 let columnas = 20
@@ -22,13 +24,21 @@ let juegoIniciado = false
 
 nuevoJuego()
 
+// ______________________________________________________________________________________________________________________-
+
+// Funciones
+
+function redireccion() {
+    window.location.href = "../../HTML/MainPage.html";
+}
+
 function nuevoJuego() {
     sonido_juegonuevo.play()
     reiniciarVariables()
-    generarTableroHTML() //Gernera la estructura visual de la matriz
-    generarTableroJuego() //Se encarla de generar las minas y los números para que sean descubiertos
-    añadirEventos() //se añaden los eventos de mouse para las celdas
-    refrescarTablero() //Se encarga del comportamiento lógico para mostrar los elementos
+    generarTableroHTML() //Genera Vista Matriz
+    generarTableroJuego() //Generar Numeros y Minas
+    añadirEventos() //Añaden el Evento de las Celdas
+    refrescarTablero() //Actualizaciones Mientras se Ejecuta
 }
 
 async function ajustes() {
@@ -85,10 +95,7 @@ function generarTableroHTML() {
     html += `<tr>`
     for (let c = 0; c < columnas; c++) {
         /*
-            Generación de cada uno de los elementos de la matriz
-            y se les asignará una coordenada, para poder tratar estos elementos
-            de forma matemática, siguiendo patrones que fácilitarán la 
-            estructura de algoritmos
+            Genera y Organiza la Coordenada de Cada Elemento
 
             id="celda-${c}-${f}"
             es la instrucción más importante, asigna una coordenada a cada elemento
@@ -106,9 +113,9 @@ function generarTableroHTML() {
 }
 
 /*
-    Una vez generado el tablero HTML se le añaden los eventos de clic
-    a cada una de las celdas para que el usuario pueda interactuar con el juego
+    Organizacion de los Eventos luego de la Ejecucion
 */
+
 function añadirEventos() {
     for (let f = 0; f < filas; f++) {
     for (let c = 0; c < columnas; c++) {
@@ -124,9 +131,9 @@ function añadirEventos() {
 }
 
 /*
-    Está función se encargará de destapar las celdas que rodean a la celda
-    a la que se le dio doble clic
+    Para Abrir Celdas Alrededor de un Tacazo con dblClick
 */
+
 function dobleClic(celda, c, f, me) {
     if (!enJuego) {
     return
@@ -136,9 +143,9 @@ function dobleClic(celda, c, f, me) {
 }
 
 /*
-    Esta función se encargará de los comportamientos de clic derecho y clic izquierdo
-    para descubrir las celdas, o marcarlas para protegerlas de ser descubiertas
+    Funciones para Abrir Celda o Colocar Banderita
 */
+
 function clicSimple(celda, c, f, me) {
     if (!enJuego) {
     return //El juego ha finalizado
@@ -165,15 +172,15 @@ function clicSimple(celda, c, f, me) {
         juegoIniciado = true //aquí se avisa que el jugador ha descubierto más de 1 celda
         if (tablero[c][f].valor == 0) {
         /*
-                                Si acertamos en una celda que no tenga minas alrededor, entonces hay que 
-                                destapar toda el área de ceros
-                            */
+            Si acertamos en una celda que no tenga minas alrededor, entonces hay que 
+            destapar toda el área de ceros
+        */
         abrirArea(c, f)
         }
         break;
-    case 1: //1 es el código para el clic medio o scroll
+    case 1: 
         break;
-    case 2: //2 es el código para el clic derecho
+    case 2: //Banderita
         if (tablero[c][f].estado == "marcado") {
         tablero[c][f].estado = undefined
         marcas--
@@ -217,6 +224,7 @@ function abrirArea(c, f) {
     Aquí nos encargaremos del comportamiento visual según el estado 
     lógico del tablero de juego
 */
+
 function refrescarTablero() {
     for (let f = 0; f < filas; f++) {
     for (let c = 0; c < columnas; c++) {
@@ -257,10 +265,12 @@ function actualizarPanelMinas() {
 }
 
 function verificarGanador() {
+    
     /*
     Hay que verificar que todas las minas estén tapadas y que las demás
     estén descubiertas
     */
+
     for (let f = 0; f < filas; f++) {
     for (let c = 0; c < columnas; c++) {
         if (tablero[c][f].estado != `descubierto`) { //Si la mina está cubeirta
@@ -274,6 +284,7 @@ function verificarGanador() {
         }
     }
     }
+
     //Si al finalizar la comprobación, todas las celdas cubiertas son minas, entonces se ha ganado
     let tableroHTML = document.getElementById("tablero")
     tableroHTML.style.background = "green"
@@ -300,6 +311,7 @@ function verificarPerdedor() {
     if (enJuego) {
     return
     }
+
     //Hay que mostrar las demás minas que están ocultas
     for (let f = 0; f < filas; f++) {
     for (let c = 0; c < columnas; c++) {
@@ -316,6 +328,7 @@ function verificarPerdedor() {
     Este servirá para dar un seguimiento lógico de 
     los elementos que el jugador no puede ver
 */
+
 function generarTableroJuego() {
     vaciarTablero() //para que no hayan interferencias con posibles partidas pasadas
     ponerMinas() //representadas númericamente con el número -1
@@ -325,6 +338,7 @@ function generarTableroJuego() {
 /*
     Se encarga de poner el tablero en un estado inicial para insertar elementos
 */
+
 function vaciarTablero() {
     tablero = []
     for (let c = 0; c < columnas; c++) {

@@ -3,17 +3,30 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../CSS/Minijuego.css">
     <link rel="icon" href="../RESOURCES/IMAGES/ordenador-personal.png">
     <title>PcWable</title>
 </head>
 
-<body>
+<body oncontextmenu="return false">
+
+    <br>
+    <span id="juego-nuevo" onclick="nuevoJuego()">
+    Juego Nuevo
+    </span>
+    <span id="minas">
+    000
+    </span>
+    <span id="Ajustes" onclick="ajustes()">
+    <i class="fas fa-cog"></i>
+    </span>
+    <table cellspacing="0" cellpadding="0" id="tablero">
+    </table>
     
     <script src="JS/LIBRARIES/JQUERY/jquery-3.6.1.min.js"></script>
     <script src="../JS/ARCHIVES/Minijuego.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,30 @@
+*{
+    margin: auto;
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+header {
+    border: 6px solid rgb(255, 255, 255);
+    border-radius: 10px;
+}   
+
+body {
+    text-align: center;
+    background-image: url("../RESOURCES/IMAGES/PNG/fondo-copa-mundial-futbol-banner-campeonato-futbol-2022-qatar_29865-3055.webp");
+    background-size: 2000px;
+    background-repeat: no-repeat;
+    font-family:sans-serif;
+    padding: 10px;
+}
+
+div {
+    display: flex;
+}
+
+article {
+    border: 6px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 300px;
+}

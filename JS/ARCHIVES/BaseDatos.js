@@ -8,7 +8,8 @@ function notificacion() {
         icon: 'info',
         title: 'Querido Usuario',
         showConfirmButton: true,
-        text: 'Por Favor Realice el Registro Primero Para Guardar sus Datos'
+        text: 'Por Favor Realice el Registro Primero Para Guardar sus Datos',
+        timer: 2500
     })
 }
 

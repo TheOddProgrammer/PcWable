@@ -38,12 +38,25 @@ button {
 }
 
 button:hover {
-    background-color: #46A2FD;
+    background-color:palegoldenrod;
     box-shadow: 0px 15px 20px rgba(#46A2FD);
-    color: white;
+    color: black;
     transform: translateY(-7px);
 }
 
 button:active {
     transform: translateY(-1px);
+}
+
+ul {
+    list-style-type: none;
+    left: 50%;
+    transform: translate(32%);
+}
+
+li {
+    float: left;
+}
+.imagen_red_social{
+    width: 50px;
 }
